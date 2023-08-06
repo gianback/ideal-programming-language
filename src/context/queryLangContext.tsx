@@ -11,7 +11,7 @@ interface QueryLangContext {
   isLoading: boolean;
   setIsLoading: (loading: boolean) => void;
   firstReq: boolean;
-  setFirstReq: (loading: boolean) => void;
+  setFirstReq: (firstReq: boolean) => void;
 }
 
 export const QueryLangContext = createContext<QueryLangContext>({
