@@ -1,9 +1,10 @@
 import { FormEvent, useState } from "react";
-import { sendSignService } from "@/services/send.sign.service";
-import { IconArrowBottom } from ".";
+import { sendSignService } from "@/services";
+
 import { Colors } from "@/models";
 import { useQueryLangContext } from "@/context/queryLangContext";
-import { signs } from "@/constants/signs";
+import { signs } from "@/constants";
+import { IconArrowBottom } from ".";
 export const colors: Colors = {
   javascript: "text-yellow-500",
   go: "text-[#08afd8]",
@@ -78,8 +79,8 @@ export function Form() {
               Selecciona tu signo
             </option>
             {signs.map((sign) => (
-              <option key={sign.name} value={sign.name}>
-                {sign.name}
+              <option key={sign} value={sign}>
+                {sign}
               </option>
             ))}
           </select>
