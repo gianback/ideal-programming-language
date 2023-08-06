@@ -1,4 +1,4 @@
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { sendSignService } from "@/services/send.sign.service";
 import { IconArrowBottom } from ".";
 import { Colors } from "@/models";
@@ -19,8 +19,13 @@ export const colors: Colors = {
   swift: "text-[#ff5635]",
 };
 export function Form() {
+  const [disabled, setDisabled] = useState(true);
   const { firstReq, setFirstReq, setIsLoading, setQuery } =
     useQueryLangContext();
+
+  const handleChange = (e: FormEvent<HTMLSelectElement>) => {
+    setDisabled(false);
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -48,6 +53,7 @@ export function Form() {
     } finally {
       form.reset();
       setIsLoading(false);
+      setDisabled(true);
     }
   };
 
@@ -57,11 +63,7 @@ export function Form() {
       className="flex gap-3 lg:gap-8 flex-col lg:flex-row mt-8 lg:mt-16 items-center"
     >
       <div className="flex gap-3 lg:gap-8 items-center ">
-        <label
-          htmlFor="sign"
-          className="text-[#E66EB2]  text-sm lg:text-3xl"
-          aria-required
-        >
+        <label htmlFor="sign" className="text-[#E66EB2]  text-sm lg:text-3xl">
           Elige tu signo
         </label>
         <div className="relative">
@@ -69,6 +71,7 @@ export function Form() {
             name="sign"
             defaultValue={""}
             id="sign"
+            onChange={handleChange}
             className=" px-4 py-2 lg:px-6 lg:py-4 rounded-md lg:w-60 w-full"
           >
             <option value="" disabled>
@@ -87,6 +90,7 @@ export function Form() {
       </div>
       <button
         type="submit"
+        disabled={disabled}
         className="textlg border-none  lg:text-xl block w-full lg:w-auto lg:inline-flex items-center justify-center px-4 py-2 lg:px-6 lg:py-4 font-medium leading-6  whitespace-no-wrap bg-[#E66EB2]  border rounded-md shadow-sm text-white"
       >
         Descubrir
